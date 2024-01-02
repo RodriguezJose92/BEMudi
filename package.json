@@ -1,0 +1,29 @@
+{
+  "name": "mudipro_be",
+  "version": "1.0.0",
+  "description": "BackEnd para servicios MUDI 3D&AR Commerce",
+  "main": "app.js",
+  "scripts": {
+    "prod": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "3d",
+    "ar",
+    "commerce",
+    "realidadAumentada",
+    "modelado3D",
+    "modeladoWeb"
+  ],
+  "author": "Jose Rodriguez",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
