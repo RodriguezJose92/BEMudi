@@ -14,3 +14,4 @@ const ReviewResponse = module.exports;
         /** Estatus 404 : Sin contenido  */
         data.res.status(404).json({ A_MudiError: 404, message:'Productos no existentes en base de datos',dataClient:data.body }) ;
     };
+    
