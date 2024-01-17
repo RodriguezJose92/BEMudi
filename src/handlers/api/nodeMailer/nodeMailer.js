@@ -46,8 +46,6 @@ sendMail.send = async (req,res) => {
         `
     });
 
-    console.log(body)
-
     if(info.response.includes('OK')){
         res.json({
             status:'Enviado satisfactoriamente'
