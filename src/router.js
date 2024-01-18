@@ -6,6 +6,7 @@ const sendMail          = require("./handlers/api/nodeMailer/nodeMailer")
 /*  Obtener dirección de un modelo 3D 
 Uso : Visor3D  */
 router.post('/getModelViewer', getModel.getModelViewer);
+router.post('/getModelViewerById', getModel.getModelViewerById);
 router.post('/mailMudiForm', sendMail.send)
 
 module.exports=router;

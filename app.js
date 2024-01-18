@@ -23,10 +23,8 @@ const opcionesHttps = {
     ca: fs.readFileSync('/etc/letsencrypt/live/viewer.mudi.com.co/chain.pem')
 };
 
-// Crear el servidor HTTPS, pero no escuchar en este punto
 const servidorHttps = https.createServer(opcionesHttps, app);
-
-// Ahora, escucha en el puerto especificado
 servidorHttps.listen(puerto, () => {
     console.log('El servidor está escuchando en el puerto ' + puerto + ' con HTTPS');
 });
+

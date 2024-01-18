@@ -2,7 +2,7 @@ const getModel = module.exports;
 const DB = require("../../../services/mysql");
 const ReviewResponse = require('../../middleWare/ReviewResponse')
 
-/** */
+/** Obtener un modelo 3D  por sku y id*/
 getModel.getModelViewer=(req,res)=>{
     
     const {idcompany,sku} = req.body;
@@ -21,3 +21,21 @@ getModel.getModelViewer=(req,res)=>{
         ReviewResponse.reviewer({ data, res, body:req.body})
     });
 };
+
+/** Obtener Modelo por IDPRODUCT */
+getModel.getModelViewerById=(req,res)=>{
+    const {idproduct} = req.body;
+
+    if(!idproduct){ReviewResponse.errorClient(res); return};
+
+    /** Los parametros si fueron llenados debidamente*/
+    const queryConsult = `SELECT company.nameCompany,company.loadingText,company.companyColor, company.companyImageUrl, company.prefixPath , company.disclaimerText, company.moveText, company.panText, company.moveTextMobile, company.panTextMobile, company.titleSize, product.nameProduct, product.productStatus_idproductStatus AS fase, product.status AS estadoProducto, product.EnvironmentSkyPath ,product.sku, product.productWidth, product.productHeight, product.productDepth FROM company, project, product
+    WHERE company.idcompany=project.company_idcompany
+    AND project.idproject = product.project_idproject
+    AND idproduct = ?`;
+
+    DB.query( queryConsult, [idproduct] , (err,data)=>{
+        if(err) throw err;
+        ReviewResponse.reviewer({ data, res, body:req.body})
+    });
+}
