@@ -1,4 +1,5 @@
 const nodeMailer = require("nodemailer");
+require('dotenv').config();
 
 const sendMail = module.exports;
 
@@ -7,8 +8,8 @@ sendMail.configTransport = nodeMailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-        user: "jose.rodriguez920929@gmail.com",
-        pass: "vdgu wgch aizi jipj"
+        user: process.env.user,
+        pass: process.env.pass
     }
 });
 
@@ -18,7 +19,7 @@ sendMail.send = async (req,res) => {
 
     const info = await sendMail.configTransport.sendMail({
         from: `${body.name} <${body.email}>`, 
-        to: 'joserodriguez@mudi.com.co', 
+        to: 'dserna@mudi.com.co', 
         subject: 'contacto desde la página Mudi', 
         html: `<h2> Información general</h2>
         <div style="display:flex; align-items: center;">
@@ -43,6 +44,34 @@ sendMail.send = async (req,res) => {
 
         <h2> solicutud del interesado: </h2>
         <p>${body.message}<p>
+        `
+    });
+
+    if(info.response.includes('OK')){
+        res.json({
+            status:'Enviado satisfactoriamente'
+        })
+    }else{
+        res.json({
+            status:'Error al enviar el mensaje'
+        })
+    }
+}
+
+sendMail.errorMudiView = async (req,res)=>{
+    const body = req.body;
+
+    const info = await sendMail.configTransport.sendMail({
+        from: `MudiBot <mudiBot@mudi.com.co>`, 
+        to: ['jrojas@mudi.com.co','jplazas@mudi.com.co','joserodriguez@mudi.com.co'], 
+        subject: 'Error de carga modelo 3D - Mudi Bot -', 
+        html: `Hemos detectado un error en el siguiente producto en el visor 3D
+        <br>
+        SKU : ${body.sku}<br>
+        IdCliente : ${body.id}<br>
+        pagina : ${body.page}
+        <br>
+        verificar la ruta del storage, la disponibilidad el modelo GLB entre otros casos. 
         `
     });
 
